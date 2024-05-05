@@ -1,10 +1,12 @@
-import express, {Express, Request, Response} from "express";
-import { Server, IncomingMessage, ServerResponse } from "http";
+import express, { Express, Request, Response } from "express";
+import { Server } from "http";
 
 
 export class App {
     public readonly express: Express = express();
-    private readonly port: Number;
+
+    private readonly port: number;
+
     private server: Server | undefined;
 
     constructor(port: number) {
@@ -12,7 +14,7 @@ export class App {
     }
 
     start(): void {
-        this.express.get('/dummy', (request: Request, response: Response) => {
+        this.express.get('/dummy', (_request: Request, response: Response) => {
             response.send('something!')
         })
 

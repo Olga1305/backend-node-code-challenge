@@ -1,5 +1,5 @@
 import * as Process from "process";
-import {App} from "./App";
+import { App } from "./App";
 
 
 const port = Number(Process.env.PORT) || 3300;
