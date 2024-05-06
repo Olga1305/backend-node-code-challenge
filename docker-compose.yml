@@ -1,0 +1,25 @@
+version: '3'
+services:
+    bank-account:
+        build:
+            context: .
+        container_name: 'bank-account'
+        environment:
+            - NODE_ENV=development
+        volumes:
+            - .:/bank_account
+        ports:
+            - 3300:3300
+        command: npm run dev
+
+    redis-bank-account:
+        image: redis:latest
+        container_name: redis-bank-account
+        hostname: redis-bank-account
+        command: redis-server --appendonly yes
+        volumes:
+            - .data/redis:/data
+        ports:
+            - '6379:6379'
+
+    
