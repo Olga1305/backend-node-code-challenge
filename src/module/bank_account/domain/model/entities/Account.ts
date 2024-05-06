@@ -3,6 +3,7 @@ import { AccountId } from '../value_objects/AccountId';
 import { Balance } from '../value_objects/Balance';
 import { Currency } from '../value_objects/Currency';
 import { DepositAmount } from '../value_objects/DepositAmount';
+import { WithdrawAmount } from '../value_objects/WithdrawAmount';
 
 type AccountPrimitives = {
     id: string;
@@ -22,6 +23,12 @@ export class Account extends AggregateRoot<AccountId> {
 
     incrementBalance(amount: DepositAmount) {
         this.balance = new Balance(this.balance.value + amount.value);
+    }
+
+    decreaseBalance(amount: WithdrawAmount) {
+        console.log('this.balance1', this.balance);
+        this.balance = new Balance(this.balance.value - amount.value);
+        console.log('this.balance2', this.balance);
     }
 
     override toPrimitives(): AccountPrimitives {

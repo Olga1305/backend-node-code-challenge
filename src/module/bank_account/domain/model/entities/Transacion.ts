@@ -8,6 +8,7 @@ import { Nullable } from '../../../../shared/domain/type/Nullable';
 import { TransactionCreatedDate } from '../value_objects/TransactionCreatedDate';
 import { EnumType } from '../../../../shared/domain/type/EnumType';
 import { DepositAmount } from '../value_objects/DepositAmount';
+import { WithdrawAmount } from '../value_objects/WithdrawAmount';
 
 export type TransactionPrimitives = {
     id: string;
@@ -21,7 +22,7 @@ export type TransactionPrimitives = {
 
 export class Transaction extends Entity<TransactionId> {
     type: TransactionType;
-    amount: Amount | DepositAmount;
+    amount: Amount | DepositAmount | WithdrawAmount;
     mainAccountId: AccountId;
     createdAt: TransactionCreatedDate;
     currency: Currency;

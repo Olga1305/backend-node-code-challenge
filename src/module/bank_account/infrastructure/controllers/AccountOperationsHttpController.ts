@@ -3,12 +3,13 @@ import Container from '../../../shared/application/ports/dependency_injection/Co
 import containerPaths from '../../../shared/application/ports/dependency_injection/container-paths';
 import DepositAmountToAccount from '../../application/account_operations/deposit/DepositAmountToAccount';
 import { AccountId } from '../../domain/model/value_objects/AccountId';
-import { Amount } from '../../domain/model/value_objects/Amount';
 import { DepositAmount } from '../../domain/model/value_objects/DepositAmount';
 import { Account } from '../../domain/model/entities/Account';
 import { Balance } from '../../domain/model/value_objects/Balance';
 import CreateAccount from '../../application/account_operations/create/CreateAccount';
 import GetAllAccounts from '../../application/account_operations/getAll/GetAllAccounts';
+import WithdrawAmountFromAccount from '../../application/account_operations/withdraw/WithdrawAmountFromAccount';
+import { WithdrawAmount } from '../../domain/model/value_objects/WithdrawAmount';
 import { AccountOperationsHttpControllerError } from './errors/AccountOperationsHttpControllerError';
 
 @JsonController('/bank/account/')
@@ -16,6 +17,7 @@ export class AccountOperationsHttpController {
     private readonly createAccountService: CreateAccount = Container.get(containerPaths.bankAccount.applicationService.createAccount);
     private readonly getAllAccountsService: GetAllAccounts = Container.get(containerPaths.bankAccount.applicationService.getAllAccounts);
     private readonly depositAmountService: DepositAmountToAccount = Container.get(containerPaths.bankAccount.applicationService.depositAmount);
+    private readonly withdrawAmountService: WithdrawAmountFromAccount = Container.get(containerPaths.bankAccount.applicationService.withdrawAmount);
 
     @HttpCode(201)
     @Post('create/:withBalance')
@@ -37,8 +39,8 @@ export class AccountOperationsHttpController {
     }
 
     @HttpCode(201)
-    @Post('deposit/:accountId/:amount')
-    async depositAmount(@Param('accountId') accountIdValue: string, @Param('amount') amountValue: number): Promise<Account> {
+    @Post('deposit/:accountId/:depositAmount')
+    async depositAmount(@Param('accountId') accountIdValue: string, @Param('depositAmount') amountValue: number): Promise<Account> {
         const accountId = new AccountId(accountIdValue);
         const amount = new DepositAmount(amountValue);
 
@@ -47,6 +49,21 @@ export class AccountOperationsHttpController {
         if (!updatedAccount) throw new AccountOperationsHttpControllerError(`Could not deposit amount <${amountValue}> to the accoun with ID <${accountIdValue}>`);
 
         console.log(`Success: Deposited amount <${updatedAccount.currency.value}${amountValue}> to the accoun with ID <${accountIdValue}>`);
+
+        return updatedAccount;
+    }
+
+    @HttpCode(201)
+    @Post('withdraw/:accountId/:withdrawalAmount')
+    async withdrawAmount(@Param('accountId') accountIdValue: string, @Param('withdrawalAmount') amountValue: number): Promise<Account> {
+        const accountId = new AccountId(accountIdValue);
+        const amount = new WithdrawAmount(amountValue);
+
+        const updatedAccount = await this.withdrawAmountService.run(accountId, amount);
+
+        if (!updatedAccount) throw new AccountOperationsHttpControllerError(`Could not withdraw amount <${amountValue}> from the accoun with ID <${accountIdValue}>`);
+
+        console.log(`Success: Withdrawed amount <${updatedAccount.currency.value}${amountValue}> from the accoun with ID <${accountIdValue}>`);
 
         return updatedAccount;
     }

@@ -20,21 +20,23 @@ export default class DepositAmountToAccount {
         const context = { accountId: `${accountId.value}`, amount: `${amount.value}` };
         try {
             const checkIfTheDepositIsPossible = await this.checkIfUserCanDeposit(accountId, amount);
-            if (!checkIfTheDepositIsPossible) throw new BankAccountApplicationDepositAmountError('Could not DepositAmount, you exceeded the day limit', { context });
-            const transaction = new Transaction(new TransactionId(), new TransactionType(TransactionsEnum.Deposit), amount, accountId);
-            await this.transactionRepository.save(transaction);
+            if (!checkIfTheDepositIsPossible) throw new BankAccountApplicationDepositAmountError('Could not DepositAmountToAccount, you exceeded the day limit', { context });
 
             const account = await this.accountRepository.findById(accountId);
             if (!account) {
-                throw new BankAccountApplicationDepositAmountError('Could not DepositAmount', { context });
+                throw new BankAccountApplicationDepositAmountError('Could not DepositAmountToAccount', { context });
             }
             account.incrementBalance(amount);
             await this.accountRepository.save(account);
+
+            const transaction = new Transaction(new TransactionId(), new TransactionType(TransactionsEnum.Deposit), amount, accountId);
+            await this.transactionRepository.save(transaction);
+
             return account;
         } catch (error) {
-            console.error('An error happened trying to DepositAmount', error);
+            console.error('An error happened trying to DepositAmountToAccount', error);
             if (error instanceof BankAccountApplicationDepositAmountError) throw error;
-            else throw new BankAccountApplicationDepositAmountError('Could not DepositAmount', { cause: error, context });
+            else throw new BankAccountApplicationDepositAmountError('Could not DepositAmountToAccount', { cause: error, context });
         }
     }
 
