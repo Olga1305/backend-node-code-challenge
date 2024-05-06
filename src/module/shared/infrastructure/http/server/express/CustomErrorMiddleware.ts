@@ -9,7 +9,6 @@ import { ValidationApplicationError } from '../../../../application/error/Valida
 
 @Middleware({ type: 'after' })
 export class CustomErrorMiddleware implements ExpressErrorMiddlewareInterface {
-
     error(error: HttpError | Error, _: Request, response: Response, next: (err?: unknown) => unknown) {
         const timestamp = new Date().toISOString();
         console.error(`CustomErrorMiddleware: ERROR [${timestamp}] ${JSON.stringify(error)}`);

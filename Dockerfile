@@ -1,27 +1,17 @@
-FROM node as builder
+FROM node:18-alpine
 
-WORKDIR /usr/src/app
-
-COPY package*.json ./
+WORKDIR /src
+COPY ["package*.json", "tsconfig.json", ".eslintrc.js", "./"]
 
 RUN npm ci
 
 COPY . .
+ARG NODE_ENV=production
+ENV NODE_ENV ${NODE_ENV}
 
 RUN npm run clean
 RUN npm run build
 
-FROM node:slim
-
-ENV NODE_ENV production
-USER node
-
-WORKDIR /usr/src/app
-
-COPY package*.json ./
-RUN npm ci --production
-
-COPY --from=builder /usr/src/app/dist ./dist
-
 EXPOSE 3300
-CMD [ "node", "dist/app/main.js" ]
+
+CMD node dist/main.js

@@ -10,9 +10,15 @@ const containerPaths = {
         },
     },
     bankAccount: {
-        applicationService: {},
+        applicationService: {
+            createAccount: 'BankAccount.ApplicationService.CreateAccount',
+            getAllAccounts: 'BankAccount.ApplicationService.GetAllAccounts',
+            depositAmount: 'BankAccount.ApplicationService.DepositAmount',
+        },
         infrastructure: {
-            adapter: {},
+            adapter: {
+                accountRepository: 'BankAccount.Infrastructure.Adapter.AccountRepository',
+            },
         },
     },
     shared: {

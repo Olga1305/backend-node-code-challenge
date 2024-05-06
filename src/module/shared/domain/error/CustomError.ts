@@ -3,7 +3,7 @@ export type Jsonable = string | number | boolean | object | null | undefined | R
 export class CustomError extends Error {
     public context?: Jsonable;
 
-    cause: unknown;
+    override cause: unknown;
 
     constructor(message: string, options: { cause?: Error | unknown; context?: Jsonable; name?: string } = {}) {
         const { cause, context, name } = options;

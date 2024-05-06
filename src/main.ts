@@ -1,5 +1,4 @@
-import { startHttpServerEntryPoint } from "./entry_point/http-server-entry-point";
-
+import { startHttpServerEntryPoint } from './entry_point/http-server-entry-point';
 
 (async () => {
     console.log(`

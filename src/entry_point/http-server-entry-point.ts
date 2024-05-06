@@ -1,8 +1,7 @@
-import Container from "../module/shared/application/ports/dependency_injection/Container";
-import containerPaths from "../module/shared/application/ports/dependency_injection/container-paths";
-import config from "../module/shared/infrastructure/config/config";
-import { Server } from "../module/shared/infrastructure/http/server/Server";
-
+import Container from '../module/shared/application/ports/dependency_injection/Container';
+import containerPaths from '../module/shared/application/ports/dependency_injection/container-paths';
+import config from '../module/shared/infrastructure/config/config';
+import { Server } from '../module/shared/infrastructure/http/server/Server';
 
 export async function startHttpServerEntryPoint() {
     const server: Server = Container.get(containerPaths.entryPoint.http.server);

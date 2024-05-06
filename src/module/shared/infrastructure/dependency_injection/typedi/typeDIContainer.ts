@@ -1,11 +1,10 @@
 import 'reflect-metadata';
 import Container, { ServiceOptions } from 'typedi';
 import { ContainerError } from '../../../application/ports/dependency_injection/ContainerError';
-import defaultDependencies from '../dependencies/application-default';
+import defaultDependencies from '../dependencies/applicationDefault';
 import IocContainer from '../../../application/ports/dependency_injection/IocContainer';
 import config from '../../config/config';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 class _typeDIContainer implements IocContainer {
     private container = Container;
 
