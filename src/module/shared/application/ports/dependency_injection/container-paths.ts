@@ -15,6 +15,7 @@ const containerPaths = {
             getAllAccounts: 'BankAccount.ApplicationService.GetAllAccounts',
             depositAmount: 'BankAccount.ApplicationService.DepositAmount',
             withdrawAmount: 'BankAccount.ApplicationService.WithdrawAmount',
+            transferAmount: 'BankAccount.ApplicationService.TransferAmount',
         },
         infrastructure: {
             adapter: {

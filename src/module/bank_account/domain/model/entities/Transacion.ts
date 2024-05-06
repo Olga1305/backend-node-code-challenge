@@ -28,7 +28,14 @@ export class Transaction extends Entity<TransactionId> {
     currency: Currency;
     recipientAccountId: Nullable<AccountId>;
 
-    constructor(id: TransactionId, type: TransactionType, amount: Amount | DepositAmount, mainAccountId: AccountId, currency?: Currency, recipientAccountId?: Nullable<AccountId>) {
+    constructor(
+        id: TransactionId,
+        type: TransactionType,
+        amount: Amount | DepositAmount | WithdrawAmount,
+        mainAccountId: AccountId,
+        recipientAccountId?: Nullable<AccountId>,
+        currency?: Currency
+    ) {
         super(id);
         this.type = type;
         this.amount = amount;

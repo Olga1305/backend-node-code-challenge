@@ -28,6 +28,7 @@ export class RedisTransactionRepository extends BaseRedisRepository<Transaction,
             new TransactionType(storedTransaction.type),
             new Amount(parseInt(storedTransaction.amount)),
             new AccountId(storedTransaction.mainAccountId),
+            storedTransaction.recipientAccountId ? new AccountId(storedTransaction.recipientAccountId) : null,
             new Currency(storedTransaction.currency)
         );
     }
@@ -39,6 +40,7 @@ export class RedisTransactionRepository extends BaseRedisRepository<Transaction,
             amount: transaction.amount.toString(),
             mainAccountId: transaction.mainAccountId.value,
             createdAt: transaction.createdAt.toString(),
+            recipientAccountId: transaction.recipientAccountId?.toString() ?? '',
             currency: transaction.currency.value,
         };
     }

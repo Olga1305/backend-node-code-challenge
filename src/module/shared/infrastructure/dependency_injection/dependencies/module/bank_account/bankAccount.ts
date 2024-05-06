@@ -6,12 +6,14 @@ import CreateAccount from '../../../../../../bank_account/application/account_op
 import DepositAmountToAccount from '../../../../../../bank_account/application/account_operations/deposit/DepositAmountToAccount';
 import GetAllAccounts from '../../../../../../bank_account/application/account_operations/getAll/GetAllAccounts';
 import WithdrawAmountFromAccount from '../../../../../../bank_account/application/account_operations/withdraw/WithdrawAmountFromAccount';
+import TransferAmount from '../../../../../../bank_account/application/account_operations/transfer/TransferAmount';
 
 const dependencies: Array<ServiceOptions> = [
     { id: containerPaths.bankAccount.applicationService.createAccount, type: CreateAccount },
     { id: containerPaths.bankAccount.applicationService.getAllAccounts, type: GetAllAccounts },
     { id: containerPaths.bankAccount.applicationService.depositAmount, type: DepositAmountToAccount },
     { id: containerPaths.bankAccount.applicationService.withdrawAmount, type: WithdrawAmountFromAccount },
+    { id: containerPaths.bankAccount.applicationService.transferAmount, type: TransferAmount },
     { id: containerPaths.bankAccount.infrastructure.adapter.accountRepository, type: RedisAccountRepository },
     { id: containerPaths.bankAccount.infrastructure.adapter.transactionRepository, type: RedisTransactionRepository },
 ];
