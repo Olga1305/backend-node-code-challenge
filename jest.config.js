@@ -1,8 +1,6 @@
 module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    transform: {
-        '^.+\\.ts?$': 'ts-jest',
-    },
-    transformIgnorePatterns: ['<rootDir>/node_modules/'],
+    testMatch: ['**/*integration-test.ts', '**/*e2e-test.ts', '**/*unit-test.ts'],
+    testPathIgnorePatterns: ['/node_modules/', '/dist'],
 };

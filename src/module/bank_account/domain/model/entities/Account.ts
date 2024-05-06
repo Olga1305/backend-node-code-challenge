@@ -16,8 +16,8 @@ export class Account extends AggregateRoot<AccountId> {
 
     constructor(id?: AccountId, balance?: Balance, currency?: Currency) {
         super(id ?? new AccountId());
-        this.currency = currency ?? new Currency('USD');
         this.balance = balance ?? new Balance(0);
+        this.currency = currency ?? new Currency('USD');
     }
 
     incrementBalance(amount: Amount) {
