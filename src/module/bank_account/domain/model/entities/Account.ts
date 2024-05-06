@@ -2,7 +2,7 @@ import { AggregateRoot } from '../../../../shared/domain/model/entity/AggregateR
 import { AccountId } from '../value_objects/AccountId';
 import { Balance } from '../value_objects/Balance';
 import { Currency } from '../value_objects/Currency';
-import { Amount } from '../value_objects/Amount';
+import { DepositAmount } from '../value_objects/DepositAmount';
 
 type AccountPrimitives = {
     id: string;
@@ -20,7 +20,7 @@ export class Account extends AggregateRoot<AccountId> {
         this.currency = currency ?? new Currency('USD');
     }
 
-    incrementBalance(amount: Amount) {
+    incrementBalance(amount: DepositAmount) {
         this.balance = new Balance(this.balance.value + amount.value);
     }
 

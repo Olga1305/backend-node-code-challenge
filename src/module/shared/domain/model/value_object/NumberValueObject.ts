@@ -16,6 +16,4 @@ export abstract class NumberValueObject extends ValueObject<number> {
     isLessOrEqualThan(other: NumberValueObject): boolean {
         return this.value <= other.value;
     }
-    // with the composition of the previous methods it is algo possible
-    // to verify inclusive/exclusive ranges [...] / (...)
 }

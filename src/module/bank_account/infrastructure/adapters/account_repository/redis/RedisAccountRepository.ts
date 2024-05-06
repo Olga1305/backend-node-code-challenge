@@ -27,7 +27,7 @@ export class RedisAccountRepository extends BaseRedisRepository<Account, Account
     serialize(account: Account): RedisStoredHash {
         return {
             id: account.id.value,
-            balance: account.balance.value as unknown as string,
+            balance: account.balance.toString(),
             currency: account.currency.value,
         };
     }

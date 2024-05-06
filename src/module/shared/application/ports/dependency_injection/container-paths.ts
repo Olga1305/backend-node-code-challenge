@@ -18,6 +18,7 @@ const containerPaths = {
         infrastructure: {
             adapter: {
                 accountRepository: 'BankAccount.Infrastructure.Adapter.AccountRepository',
+                transactionRepository: 'BankAccount.Infrastructure.Adapter.TransactionRepository',
             },
         },
     },
