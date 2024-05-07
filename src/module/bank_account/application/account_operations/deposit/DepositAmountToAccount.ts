@@ -1,6 +1,7 @@
 import Container from '../../../../shared/application/ports/dependency_injection/Container';
 import containerPaths from '../../../../shared/application/ports/dependency_injection/container-paths';
 import { Repository } from '../../../../shared/domain/ports/Repository';
+import { NotFoundAccountDomainError } from '../../../domain/error/NotFoundAccountDomainError';
 import { Account } from '../../../domain/model/entities/Account';
 import { Transaction } from '../../../domain/model/entities/Transacion';
 import { AccountId } from '../../../domain/model/value_objects/AccountId';
@@ -24,7 +25,7 @@ export default class DepositAmountToAccount {
 
             const account = await this.accountRepository.findById(accountId);
             if (!account) {
-                throw new BankAccountApplicationDepositAmountError('Could not DepositAmountToAccount', { context });
+                throw new NotFoundAccountDomainError('Could not DepositAmountToAccount', { context });
             }
             account.incrementBalance(amount);
             await this.accountRepository.save(account);
@@ -35,7 +36,7 @@ export default class DepositAmountToAccount {
             return account;
         } catch (error) {
             console.error('An error happened trying to DepositAmountToAccount', error);
-            if (error instanceof BankAccountApplicationDepositAmountError) throw error;
+            if (error instanceof BankAccountApplicationDepositAmountError || error instanceof NotFoundAccountDomainError) throw error;
             else throw new BankAccountApplicationDepositAmountError('Could not DepositAmountToAccount', { cause: error, context });
         }
     }

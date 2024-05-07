@@ -13,7 +13,7 @@ describe('RedisAccountRepository repository implementation', () => {
 
     let addedAccount: Account | null;
     let foundedAccounts: Array<Account>;
-    let deletedFlightPILMock: Account | null;
+    let deleted: Account | null;
     let emptyResult: Array<Account>;
 
     beforeAll(async () => {
@@ -22,7 +22,7 @@ describe('RedisAccountRepository repository implementation', () => {
         addedAccount = await redisAccountRepository.findById(fakeAccountId);
         foundedAccounts = await redisAccountRepository.getAll();
         await redisAccountRepository.delete(fakeAccountId);
-        deletedFlightPILMock = await redisAccountRepository.findById(fakeAccountId);
+        deleted = await redisAccountRepository.findById(fakeAccountId);
         emptyResult = await redisAccountRepository.getAll();
     });
 
@@ -54,7 +54,7 @@ describe('RedisAccountRepository repository implementation', () => {
     describe('delete', () => {
         describe('Given the repo is requested to delete an existent account by id', () => {
             test('Should delete the stored account', async () => {
-                expect(deletedFlightPILMock).toEqual(null);
+                expect(deleted).toEqual(null);
             });
         });
         describe('Given the repo is requested to delete an non-existent account by id', () => {
@@ -67,7 +67,7 @@ describe('RedisAccountRepository repository implementation', () => {
     describe('Negative (missing) findById', () => {
         describe('Given the repo is requested to get a missing account by id', () => {
             test('Should return null', async () => {
-                expect(deletedFlightPILMock).toEqual(null);
+                expect(deleted).toEqual(null);
             });
         });
     });

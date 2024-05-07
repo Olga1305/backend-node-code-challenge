@@ -1,6 +1,7 @@
 import Container from '../../../../shared/application/ports/dependency_injection/Container';
 import containerPaths from '../../../../shared/application/ports/dependency_injection/container-paths';
 import { Repository } from '../../../../shared/domain/ports/Repository';
+import { NotFoundAccountDomainError } from '../../../domain/error/NotFoundAccountDomainError';
 import { Account } from '../../../domain/model/entities/Account';
 import { Transaction } from '../../../domain/model/entities/Transacion';
 import { AccountId } from '../../../domain/model/value_objects/AccountId';
@@ -21,7 +22,7 @@ export default class TransferAmount {
             const toAccount = await this.accountRepository.findById(toAccountId);
 
             if (!fromAccount || !toAccount) {
-                throw new BankAccountApplicationTransferAmountError('Could not TransferAmount', { context });
+                throw new NotFoundAccountDomainError('Could not TransferAmount', { context });
             }
 
             const checkIfTheTransferIsPossible = this.checkIfUserCanTransfer(fromAccount, amount);

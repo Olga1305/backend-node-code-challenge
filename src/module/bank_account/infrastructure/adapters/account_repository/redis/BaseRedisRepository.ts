@@ -6,10 +6,6 @@ interface EntityIdConstraint {
     value: string;
 }
 
-interface ForeinKey {
-    value: string;
-}
-
 export abstract class BaseRedisRepository<Entity, EntityId extends EntityIdConstraint> {
     protected readonly setName: string;
     protected readonly redisDbClient: RedisDbClient;
@@ -40,25 +36,6 @@ export abstract class BaseRedisRepository<Entity, EntityId extends EntityIdConst
     async findById(id: EntityId): Promise<Entity | null> {
         try {
             console.log(`Finding ${this.setName} with id: ${id.value}`);
-
-            const redisStoredHash = await this.redisDbClient.executeCommand(async (connectedClient) => connectedClient.hGetAll(`${this.setName}:${id.value}`));
-
-            if (Object.keys(redisStoredHash).length) {
-                return this.deserialize(redisStoredHash);
-            }
-
-            return null;
-        } catch (error) {
-            const errorMessage = `Failed to find the requested ${this.setName} with id: ${id.value}`;
-            const errorOptions = { cause: error, context: { id: id.value } };
-            const customError = this.getError(errorMessage, errorOptions);
-            throw customError;
-        }
-    }
-
-    async findByForeinKey(id: ForeinKey): Promise<Entity | null> {
-        try {
-            console.log(`Finding ${this.setName} with forein key: ${id.value}`);
 
             const redisStoredHash = await this.redisDbClient.executeCommand(async (connectedClient) => connectedClient.hGetAll(`${this.setName}:${id.value}`));
 

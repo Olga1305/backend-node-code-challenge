@@ -33,7 +33,6 @@ export class AccountOperationsHttpController {
     }
 
     @Get('all')
-    @OnUndefined(404)
     async getAllAccounts(): Promise<Array<Account>> {
         const accounts = await this.getAllAccountsService.run();
         if (!accounts) throw new AccountOperationsHttpControllerError('Could not get all accounts');

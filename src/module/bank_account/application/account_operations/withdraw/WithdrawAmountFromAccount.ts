@@ -1,6 +1,7 @@
 import Container from '../../../../shared/application/ports/dependency_injection/Container';
 import containerPaths from '../../../../shared/application/ports/dependency_injection/container-paths';
 import { Repository } from '../../../../shared/domain/ports/Repository';
+import { NotFoundAccountDomainError } from '../../../domain/error/NotFoundAccountDomainError';
 import { Account } from '../../../domain/model/entities/Account';
 import { Transaction } from '../../../domain/model/entities/Transacion';
 import { AccountId } from '../../../domain/model/value_objects/AccountId';
@@ -21,7 +22,7 @@ export default class WithdrawAmountFromAccount {
         try {
             const account = await this.accountRepository.findById(accountId);
             if (!account) {
-                throw new BankAccountApplicationWithdrawAmountError('Could not WithdrawAmountFromAccount', { context });
+                throw new NotFoundAccountDomainError('Could not WithdrawAmountFromAccount', { context });
             }
 
             const checkIfTheWithdrawalIsPossible = this.checkIfUserCanWithdraw(account, amount);
@@ -37,7 +38,7 @@ export default class WithdrawAmountFromAccount {
             return account;
         } catch (error) {
             console.error('An error happened trying to WithdrawAmountFromAccount', error);
-            if (error instanceof BankAccountApplicationWithdrawAmountError) throw error;
+            if (error instanceof BankAccountApplicationWithdrawAmountError || error instanceof NotFoundAccountDomainError) throw error;
             else throw new BankAccountApplicationWithdrawAmountError('Could not WithdrawAmountFromAccount', { cause: error, context });
         }
     }

@@ -94,8 +94,6 @@ npm run test:integration
 ```bash
 npm run test:e2e
 ```
-* The end-to-end tests are not added yet
-
 
 ### Cleaning the database
 

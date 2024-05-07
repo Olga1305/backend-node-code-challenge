@@ -10,7 +10,6 @@
         "dev": "ts-node-dev src/main.ts",
         "lint": "eslint --ext .ts .",
         "lint:fix": "eslint --fix --ext .ts .",
-        "migrate": "node-pg-migrate",
         "start": "node dist/main.js",
         "test": "jest",
         "test:unit": "REDIS_HOST=localhost jest --testMatch=**/*unit-test.ts",
