@@ -6,6 +6,7 @@
     "scripts": {
         "build": "tsc --build",
         "clean": "tsc --build --clean",
+        "clean:db": "sudo rm -rf .data/redis/*",
         "dev": "ts-node-dev src/main.ts",
         "lint": "eslint --ext .ts .",
         "lint:fix": "eslint --fix --ext .ts .",

@@ -25,9 +25,7 @@ export class Account extends AggregateRoot<AccountId> {
     }
 
     decreaseBalance(amount: Amount) {
-        console.log('this.balance1', this.balance);
         this.balance = new Balance(this.balance.value - amount.value);
-        console.log('this.balance2', this.balance);
     }
 
     override toPrimitives(): AccountPrimitives {
