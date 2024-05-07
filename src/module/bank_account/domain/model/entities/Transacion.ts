@@ -34,14 +34,15 @@ export class Transaction extends Entity<TransactionId> {
         amount: Amount | DepositAmount | WithdrawAmount,
         mainAccountId: AccountId,
         recipientAccountId?: Nullable<AccountId>,
-        currency?: Currency
+        currency?: Currency,
+        createdAt?: TransactionCreatedDate
     ) {
         super(id);
         this.type = type;
         this.amount = amount;
         this.mainAccountId = mainAccountId;
         this.currency = currency ?? new Currency('USD');
-        this.createdAt = new TransactionCreatedDate();
+        this.createdAt = createdAt ?? new TransactionCreatedDate();
         if (recipientAccountId) this.recipientAccountId = recipientAccountId;
     }
 

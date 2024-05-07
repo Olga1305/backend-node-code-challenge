@@ -49,7 +49,7 @@ export default class DepositAmountToAccount {
         const transactions = await this.transactionRepository.getAll();
         if (!transactions.length) return true;
         const todayUserDepositTransactions = transactions.filter(
-            (item) => item.mainAccountId.value === accountId.value && item.type.value === TransactionsEnum.Deposit && this.getTheDay(new Date(item.createdAt.value)) === today
+            (item) => item.mainAccountId.value === accountId.value && item.type.value === TransactionsEnum.Deposit && this.getTheDay(item.createdAt.value) === today
         );
         if (!todayUserDepositTransactions.length) return true;
         const todayDepositsAmount = todayUserDepositTransactions.reduce((acc, curr) => acc + curr.amount.value, 0);

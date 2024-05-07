@@ -2,6 +2,7 @@ import { Transaction } from '../../../../domain/model/entities/Transacion';
 import { AccountId } from '../../../../domain/model/value_objects/AccountId';
 import { Amount } from '../../../../domain/model/value_objects/Amount';
 import { Currency } from '../../../../domain/model/value_objects/Currency';
+import { TransactionCreatedDate } from '../../../../domain/model/value_objects/TransactionCreatedDate';
 import { TransactionId } from '../../../../domain/model/value_objects/TransactionId';
 import { TransactionType } from '../../../../domain/model/value_objects/TransactionType';
 import RedisTransactionRepositoryError from '../../../../domain/ports/errors/RedisTransactionRepositoryError';
@@ -29,7 +30,8 @@ export class RedisTransactionRepository extends BaseRedisRepository<Transaction,
             new Amount(parseInt(storedTransaction.amount)),
             new AccountId(storedTransaction.mainAccountId),
             storedTransaction.recipientAccountId ? new AccountId(storedTransaction.recipientAccountId) : null,
-            new Currency(storedTransaction.currency)
+            new Currency(storedTransaction.currency),
+            new TransactionCreatedDate(storedTransaction.createdAt)
         );
     }
 
